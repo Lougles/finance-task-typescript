@@ -1,0 +1,16 @@
+.container {
+
+}
+.header {
+
+}
+.logo__container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+.logo__container > span {
+    font-size: 52px;
+    margin-top: -7px;
+    margin-left: 25px;
+}

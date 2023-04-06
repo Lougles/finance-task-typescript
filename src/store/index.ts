@@ -1,11 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import thunkMiddleware from "redux-thunk";
+import tickersSlice from './slices/tickerSlice'
 
 
-
-const store = configureStore({
+export const store = configureStore({
     reducer: {
-
+        tickers: tickersSlice,
     },
     middleware: [thunkMiddleware],
     devTools: true,
