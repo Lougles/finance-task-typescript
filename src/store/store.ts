@@ -1,14 +1,15 @@
 import { configureStore } from '@reduxjs/toolkit';
 import thunkMiddleware from "redux-thunk";
-import tickersSlice from './slices/tickerSlice'
+import socketReducer from './slices/socketSlice';
 
-
-export const store = configureStore({
+const store = configureStore({
     reducer: {
-        tickers: tickersSlice,
+        socket: socketReducer,
     },
     middleware: [thunkMiddleware],
     devTools: true,
 })
 export type RootState = ReturnType<typeof store.getState>
-export type AppDispatch = typeof store.dispatch
+export type AppDispatch = typeof store.dispatch;
+
+export default store;
