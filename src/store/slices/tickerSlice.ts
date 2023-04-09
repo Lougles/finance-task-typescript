@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import {AppDispatch} from "../index";
 
 interface RootState {
     tickers: {
@@ -46,6 +47,23 @@ export const {
     getTickersPrevious,
     getTickersError,
 } = tickersSlice.actions;
+
+// export const getTickers = (tickers: Ticker[]) => (
+//     dispatch: AppDispatch,
+//     getState: () => RootState
+// ) => {
+//     dispatch(
+//         getTickersPrevious(
+//             getState().tickers.actualTickers.map(
+//                 (ticker: Ticker): GetTickersPreviousPayload => ({
+//                     ticker: ticker.ticker,
+//                     change_percent: ticker.change_percent,
+//                 })
+//             )
+//         )
+//     );
+//     dispatch(getTickersActual(tickers));
+// };
 
 export const selectTickersData = (state: RootState) => state.tickers;
 
