@@ -3,12 +3,14 @@ import { SocketData } from "../types";
 
 export interface SocketState {
     data: SocketData[];
+    previousData: SocketData[];
     isLoading: boolean;
     error: boolean;
 }
 
 const initialState: SocketState = {
     data: [],
+    previousData: [],
     isLoading: true,
     error: false,
 };
@@ -18,6 +20,7 @@ const socketSlice = createSlice({
     initialState,
     reducers: {
         setData(state, action: PayloadAction<SocketData[]>) {
+            state.previousData = state.data;
             state.data = action.payload;
             state.isLoading = false;
             state.error = false;

@@ -1,17 +1,16 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import {ReactElement, useEffect} from "react";
 import io from "socket.io-client";
 import { RootState } from "../../store/store";
 import { setData, setLoading, setError } from "../../store/slices/socketSlice";
 import {SocketData} from "../../store/types";
 import {useAppDispatch, useAppSelector} from "../../hooks/DefineTypedHooks";
+import {Item} from "../Item/Item";
 
 const socket = io("http://localhost:4000");
 
 const List = () => {
     const dispatch = useAppDispatch();
-    const { data, isLoading, error } = useAppSelector((state: RootState) => state.socket);
-    console.log(data);
+    const { data, isLoading, error, previousData } = useAppSelector((state: RootState) => state.socket);
     useEffect(() => {
         dispatch(setLoading());
 
@@ -38,14 +37,17 @@ const List = () => {
         return <div>Error loading data</div>;
     }
 
+    const items = data.map((item: SocketData) => (
+        <Item key={item.ticker} data={item}/>
+    ))
     return (
-        <ul>
-            {data.map((item) => (
-                <li key={item.ticker}>
-                    {item.ticker} - {item.price}
-                </li>
-            ))}
-        </ul>
+        <>
+            {/*{!is Loading && !error && (*/}
+                <ul>
+                    {items}
+                </ul>
+            {/*// )}*/}
+        </>
     );
 };
 
