@@ -5,7 +5,7 @@ import { setData, setLoading, setError } from "../../store/slices/socketSlice";
 import {SocketData} from "../../store/types";
 import {useAppDispatch, useAppSelector} from "../../hooks/DefineTypedHooks";
 import {Item} from "../Item/Item";
-
+import style from './List.module.css'
 const socket = io("http://localhost:4000");
 
 const List = () => {
@@ -42,11 +42,9 @@ const List = () => {
     ))
     return (
         <>
-            {/*{!is Loading && !error && (*/}
-                <ul>
-                    {items}
-                </ul>
-            {/*// )}*/}
+            <ul className={style.list}>
+                {items}
+            </ul>
         </>
     );
 };

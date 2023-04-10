@@ -1,0 +1,45 @@
+.listItem {
+    display: block;
+    cursor: pointer;
+}
+.listItem:hover {
+    background-color: darkgray;
+}
+.listItemWrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 48px;
+    border-top: 1px solid #e8eaed;
+}
+.listItemHeader{
+    margin-right: 10px;
+}
+.listItemCompany {
+    display: flex;
+    justify-content: space-between;
+    width: 30px;
+    color: #202124;
+}
+.good {
+    background-color: lightgreen;
+    color: darkgreen;
+}
+.bad {
+    background-color: lightcoral;
+    color: darkred;
+}
+.common {
+    padding: 10px;
+    border-radius: 15%;
+}
+.item {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 1.9s ease-out, transform 0.5s ease-out;
+}
+
+.itemVisible {
+    opacity: 1;
+    transform: translateY(0);
+}
