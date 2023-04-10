@@ -1,7 +1,7 @@
 import {SocketData} from "../../store/types";
 import {useAppSelector} from "../../hooks/DefineTypedHooks";
 import {RootState} from "../../store/store";
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useState} from "react";
 import style from './Item.module.css'
 interface ItemProps {
     data: SocketData;
@@ -11,7 +11,7 @@ interface Companies {
     [key: string]: string
 }
 export const Item = ({data}: ItemProps) => {
-    const {ticker, exchange, price, last_trade_time, change_percent, dividend, change } = data;
+    const {ticker, price, last_trade_time, change_percent } = data;
 
     const companies: Companies = {
         AAPL: "Apple",
@@ -39,27 +39,6 @@ export const Item = ({data}: ItemProps) => {
 
     const time = new Date(last_trade_time);
 
-    const [isVisible, setIsVisible] = useState(false);
-    const itemRef = useRef(null);
-
-    useEffect(() => {
-        const itemElement = itemRef.current;
-        if (!itemElement) {
-            return;
-        }
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                if (entry.isIntersecting) {
-                    setIsVisible(true);
-                    observer.unobserve(itemElement);
-                }
-            },
-            { threshold: 0.5 }
-        );
-        observer.observe(itemElement);
-    }, [itemRef, change_percent]);
-
-
     return (
         <li className={`${style.listItem}`}>
             <div className={style.listItemWrapper} >
@@ -68,7 +47,7 @@ export const Item = ({data}: ItemProps) => {
                     <span>{companies[ticker.toUpperCase()]}</span>
                 </div>
                 <span>{price} $</span>
-                <span className={`${isPositive ? style.good : style.bad} ${style.common} ${isVisible ? style.itemVisible : style.item}`}  ref={itemRef}>{isPositive ? "↑" : "↓"} {change_percent} %</span>
+                <span className={`${isPositive ? style.good : style.bad} ${style.common} ${style.animateChange}`}>{isPositive ? "↑" : "↓"} {change_percent} %</span>
                 <span>{time.toLocaleTimeString()}</span>
             </div>
         </li>
