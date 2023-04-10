@@ -4,20 +4,21 @@ import io from "socket.io-client";
 import { RootState } from "../../store/store";
 import { setData, setLoading, setError } from "../../store/slices/socketSlice";
 import {SocketData} from "../../store/types";
+import {useAppDispatch, useAppSelector} from "../../hooks/DefineTypedHooks";
 
 const socket = io("http://localhost:4000");
 
 const List = () => {
-    const dispatch = useDispatch();
-    const { data, isLoading, error } = useSelector((state: RootState) => state.socket);
+    const dispatch = useAppDispatch();
+    const { data, isLoading, error } = useAppSelector((state: RootState) => state.socket);
     console.log(data);
     useEffect(() => {
         dispatch(setLoading());
 
         socket.emit("start");
 
-        socket.on("ticker", (quotes: SocketData[]) => {
-            dispatch(setData(quotes));
+        socket.on("ticker", (data: SocketData[]) => {
+            dispatch(setData(data));
         });
 
         socket.on("connect_error", () => {
@@ -39,9 +40,9 @@ const List = () => {
 
     return (
         <ul>
-            {data.map((quote) => (
-                <li key={quote.ticker}>
-                    {quote.ticker} - {quote.price}
+            {data.map((item) => (
+                <li key={item.ticker}>
+                    {item.ticker} - {item.price}
                 </li>
             ))}
         </ul>
